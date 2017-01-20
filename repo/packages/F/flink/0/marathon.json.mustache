@@ -1,0 +1,65 @@
+{
+  "id": "{{service.name}}",
+  "cpus": {{app-master.cpus}},
+  "mem": {{app-master.memory}},
+  "cmd": "/sbin/init.sh",
+
+  "env": {
+    "DCOS_SERVICE_NAME": "{{service.name}}",
+    "FLINK_TASK_SLOTS": "{{service.slots}}",
+    "FLINK_PARALLELISM_DEFAULT": "{{service.parallelism-default}}",
+    "FLINK_DISPATCHER_MESOS_ROLE": "{{service.role}}",
+    "FLINK_DISPATCHER_MESOS_PRINCIPAL": "{{service.principal}}",
+    "FLINK_DISPATCHER_MESOS_SECRET": "{{service.secret}}",
+    "FLINK_USER": "{{service.user}}",
+    "FLINK_LOG_LEVEL": "{{service.log-level}}",
+    "FLINK_APP_MASTER_CPUS": "{{app-master.cpus}}",
+    "FLINK_APP_MASTER_MEM": "{{app-master.memory}}",
+    "FLINK_APP_MASTER_HEAP": "{{app-master.heap}}",
+    "FLINK_TASK_MANAGER_COUNT": "{{task-managers.count}}",
+    "FLINK_TASK_MANAGER_CPUS": "{{task-managers.cpus}}",
+    "FLINK_TASK_MANAGER_MEM": "{{task-managers.memory}}",
+    "FLINK_TASK_MANAGER_HEAP": "{{task-managers.heap}}",
+    "FLINK_TASK_MANAGER_MEM_PREALLOCATION": "{{task-managers.memory-preallocation}}"
+  },
+
+  "container": {
+    "type": "DOCKER",
+    "docker": {
+      "image": "{{resource.assets.container.docker.flink}}",
+      "network": "HOST",
+{{#service.user}}
+      "parameters": [
+        {
+          "key": "user",
+          "value": "{{service.user}}"
+        }
+      ],
+{{/service.user}}
+      "forcePullImage": true
+    }
+  },
+
+  "ports": [0, 0, 0, 0, 0],
+
+  "healthChecks": [
+    {
+      "protocol": "HTTP",
+      "path": "/",
+      "portIndex": 0,
+      "gracePeriodSeconds": 5,
+      "intervalSeconds": 60,
+      "timeoutSeconds": 10,
+      "maxConsecutiveFailures": 3
+    }
+  ],
+
+  "labels": {
+{{#service.user}}
+    "user": "{{service.user}}",
+{{/service.user}}
+    "DCOS_SERVICE_NAME": "{{service.name}}",
+    "DCOS_SERVICE_PORT_INDEX": "0",
+    "DCOS_SERVICE_SCHEME": "http"
+  }
+}
