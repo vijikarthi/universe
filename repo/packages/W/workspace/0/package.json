@@ -1,0 +1,12 @@
+{
+  "packagingVersion": "2.0",
+  "name": "workspace-agent",
+  "version": "0.1",
+  "maintainer": "support@nautilus.io",
+  "description": "Nautilus analytics workspace agent service",
+  "selected": false,
+  "framework": true,
+  "tags": ["analytics", "workspace-agent"],
+  "postInstallNotes": "DC/OS workspace-agent is being installed",
+  "postUninstallNotes": "DC/OS workspace-agent has been uninstalled."
+}

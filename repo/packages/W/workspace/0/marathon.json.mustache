@@ -1,0 +1,60 @@
+{
+  "id": "{{service.name}}",
+  "cpus": {{service.cpus}},
+  "mem": {{service.mem}},
+  "instances": 1,
+  "cmd": "{{service.cmd_prefix}} && export EXECUTOR_URI=http://${HOST}:${PORT0}/executor.zip && cd /usr/local/workspace-agent && bin/workspace-agent server conf/agent.yml",
+  "labels": {
+    "DCOS_PACKAGE_FRAMEWORK_NAME": "{{service.name}}",
+    "DCOS_MIGRATION_API_VERSION": "v1",
+    "DCOS_MIGRATION_API_PATH": "/v1/plan",
+    "MARATHON_SINGLE_INSTANCE_APP":"true",
+    "DCOS_SERVICE_NAME": "{{service.name}}",
+    "DCOS_SERVICE_PORT_INDEX": "0",
+    "DCOS_SERVICE_SCHEME": "http"
+  },
+  "container": {
+    "type": "MESOS",
+    "docker": {
+      "network": "HOST",
+      "image": "{{resource.assets.container.docker.workspace}}",
+      "forcePullImage": true
+    }
+  },
+  "env": {
+    "FRAMEWORK_NAME": "{{service.name}}",
+    "WORKSPACE-AGENT_COUNT": "{{service.count}}",
+    "WORKSPACE-AGENT_CPUS": "{{service.cpus}}",
+    "WORKSPACE-AGENT_MEM": "{{service.mem}}",
+    "WORKSPACE-AGENT_PLACEMENT": "{{service.placement}}",
+    "LIBMESOS_URI": "{{resource.assets.uris.libmesos-bundle-tar-gz}}",
+    "HDFS_CONFIG_URL": "{{hdfs.config-url}}",
+    "FLINK_JM_HEAP_MB": "{{flink.jobmanager.heap}}",
+    "FLINK_MESOS_INITAL_TASKS": "{{flink.task-manager.count}}",
+    "FLINK_MESOS_RM_TASKS_CPUS": "{{flink.task-manager.cpus}}",
+    "FLINK_RM_TASKS_MEMORY": "{{flink.task-manager.memory}}",
+    "FLINK_TM_HEAP_MB": "{{flink.task-manager.heap}}",
+    "FLINK_TM_MEMORY_PRE_ALLOCATE": "{{flink.task-manager.memory-preallocation}}",
+    "FLINK_TM_NO_SLOTS": "{{flink.core.slots}}",
+    "FLINK_PARALLELISM_DEFAULT": "{{flink.core.default-parallelism}}",
+    "FLINK_IMAGE": "{{resource.assets.container.docker.flink}}",
+    "ZEPPELIN_IMAGE": "{{resource.assets.container.docker.zeppelin}}",
+    "MESOS_API_VERSION": "V1",
+    "DCOS_ADDRESS": "master.mesos",
+    "ZOOKEEPER_HOST": "master.mesos"
+  },
+  "uris": [
+    {{#hdfs.config-url}}
+    "{{hdfs.config-url}}/hdfs-site.xml",
+    "{{hdfs.config-url}}/core-site.xml",
+    {{/hdfs.config-url}}
+    "{{resource.assets.uris.jre-tar-gz}}",
+    "{{resource.assets.uris.libmesos-bundle-tar-gz}}",
+    "{{resource.assets.uris.bootstrap-zip}}"
+  ],
+  "upgradeStrategy":{
+    "minimumHealthCapacity": 0,
+    "maximumOverCapacity": 0
+  },
+  "ports":[0,0,0,0,0,0,0,0]
+}
