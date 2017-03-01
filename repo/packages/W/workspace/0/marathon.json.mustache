@@ -3,7 +3,7 @@
   "cpus": {{service.cpus}},
   "mem": {{service.mem}},
   "instances": 1,
-  "cmd": "{{service.cmd_prefix}} && export EXECUTOR_URI=http://workspace-agent.marathon.mesos:${PORT0}/executor.zip && cd /usr/local/workspace-agent && bin/workspace-agent server conf/agent.yml",
+  "cmd": "{{service.cmd_prefix}} && export EXECUTOR_URI=http://{{service.name}}.marathon.mesos:${PORT0}/executor.zip && cd /usr/local/workspace-agent && bin/workspace-agent server conf/agent.yml",
   "labels": {
     "DCOS_PACKAGE_FRAMEWORK_NAME": "{{service.name}}",
     "DCOS_MIGRATION_API_VERSION": "v1",
