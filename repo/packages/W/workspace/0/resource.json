@@ -8,8 +8,8 @@
     "container": {
       "docker": {
         "workspace": "asdrepo.marathon.containerip.dcos.thisdcos.directory:80/sriniv3/workspace-agent:1.1-SNAPSHOT",
-        "flink": "asdrepo.marathon.containerip.dcos.thisdcos.directory:80/sriniv3/flink:0.1-33.07d9e55",
-        "zeppelin": "asdrepo.marathon.containerip.dcos.thisdcos.directory:80/sriniv3/zeppelin:0.1-33.07d9e55"
+        "flink": "asdrepo.marathon.containerip.dcos.thisdcos.directory:80/sriniv3/flink:0.1-35.2bcf49c",
+        "zeppelin": "asdrepo.marathon.containerip.dcos.thisdcos.directory:80/sriniv3/zeppelin:0.1-35.2bcf49c"
       }
     }
   },
