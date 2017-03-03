@@ -42,7 +42,9 @@
     "DCOS_ADDRESS": "master.mesos",
     "ZOOKEEPER_HOST": "master.mesos",
     "FLINK_LOG_DIR": "$MESOS_SANDBOX",
-    "FLINK_CONTAINER_FRAMEWORK_NAME": "$FRAMEWORK_NAME-flink"
+    "FLINK_FRAMEWORK_NAME": "$FRAMEWORK_NAME-flink",
+    "FLINK_FRAMEWORK_ROLE": "$FRAMEWORK_NAME",
+    "FLINK_FRAMEWORK_USER": "nobody"
   },
   "uris": [
     {{#hdfs.config-url}}
